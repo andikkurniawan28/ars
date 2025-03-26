@@ -8,58 +8,73 @@ use Illuminate\Http\Request;
 class FirmwareController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Tampilkan daftar firmware.
      */
     public function index()
     {
-        //
+        $firmwares = Firmware::all();
+        return view('firmwares.index', compact('firmwares'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Tampilkan form untuk menambahkan firmware baru.
      */
     public function create()
     {
-        //
+        return view('firmwares.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Simpan firmware baru ke database.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|unique:firmwares,nama',
+        ]);
+
+        Firmware::create($request->all());
+
+        return redirect()->route('firmwares.index')->with('success', 'Firmware berhasil ditambahkan.');
     }
 
     /**
-     * Display the specified resource.
+     * Tampilkan detail firmware tertentu.
      */
     public function show(Firmware $firmware)
     {
-        //
+        return view('firmwares.show', compact('firmware'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Tampilkan form untuk edit firmware tertentu.
      */
     public function edit(Firmware $firmware)
     {
-        //
+        return view('firmwares.edit', compact('firmware'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update data firmware tertentu di database.
      */
     public function update(Request $request, Firmware $firmware)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|unique:firmwares,nama,' . $firmware->id,
+        ]);
+
+        $firmware->update($request->all());
+
+        return redirect()->route('firmwares.index')->with('success', 'Firmware berhasil diperbarui.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Hapus firmware tertentu dari database.
      */
     public function destroy(Firmware $firmware)
     {
-        //
+        $firmware->delete();
+
+        return redirect()->route('firmwares.index')->with('success', 'Firmware berhasil dihapus.');
     }
 }

@@ -8,58 +8,73 @@ use Illuminate\Http\Request;
 class PeranController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Tampilkan daftar peran.
      */
     public function index()
     {
-        //
+        $perans = Peran::all();
+        return view('perans.index', compact('perans'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Tampilkan form untuk menambahkan peran baru.
      */
     public function create()
     {
-        //
+        return view('perans.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Simpan peran baru ke database.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|unique:perans,nama',
+        ]);
+
+        Peran::create($request->all());
+
+        return redirect()->route('perans.index')->with('success', 'Peran berhasil ditambahkan.');
     }
 
     /**
-     * Display the specified resource.
+     * Tampilkan detail peran tertentu.
      */
     public function show(Peran $peran)
     {
-        //
+        return view('perans.show', compact('peran'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Tampilkan form untuk edit peran tertentu.
      */
     public function edit(Peran $peran)
     {
-        //
+        return view('perans.edit', compact('peran'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update data peran tertentu di database.
      */
     public function update(Request $request, Peran $peran)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|unique:perans,nama,' . $peran->id,
+        ]);
+
+        $peran->update($request->all());
+
+        return redirect()->route('perans.index')->with('success', 'Peran berhasil diperbarui.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Hapus peran tertentu dari database.
      */
     public function destroy(Peran $peran)
     {
-        //
+        $peran->delete();
+
+        return redirect()->route('perans.index')->with('success', 'Peran berhasil dihapus.');
     }
 }
