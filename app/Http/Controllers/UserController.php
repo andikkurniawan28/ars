@@ -3,63 +3,90 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Cabang;
+use App\Models\Peran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $users = User::with(['cabang', 'peran'])->get();
+        return view('user.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $cabangs = Cabang::all();
+        $perans = Peran::all();
+        return view('user.create', compact('cabangs', 'perans'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'username' => 'required|unique:users',
+            'password' => 'required|min:6',
+            'alamat' => 'required',
+            'whatsapp' => 'required|unique:users',
+            'status' => 'boolean',
+            'cabang_id' => 'nullable|exists:cabangs,id',
+            'peran_id' => 'required|exists:perans,id',
+        ]);
+
+        User::create([
+            'nama' => $request->nama,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'alamat' => $request->alamat,
+            'whatsapp' => $request->whatsapp,
+            'status' => $request->status ?? 0,
+            'cabang_id' => $request->cabang_id,
+            'peran_id' => $request->peran_id,
+        ]);
+
+        return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
+    public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $cabangs = Cabang::all();
+        $perans = Peran::all();
+        return view('user.edit', compact('user', 'cabangs', 'perans'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'nama' => 'required',
+            'username' => 'required|unique:users,username,' . $id,
+            'password' => 'nullable|min:6',
+            'alamat' => 'required',
+            'whatsapp' => 'required|unique:users,whatsapp,' . $id,
+            'status' => 'boolean',
+            'cabang_id' => 'nullable|exists:cabangs,id',
+            'peran_id' => 'required|exists:perans,id',
+        ]);
+
+        $data = $request->except('password');
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('user.index')->with('success', 'User berhasil diperbarui!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('user.index')->with('success', 'User berhasil dihapus.');
     }
 }

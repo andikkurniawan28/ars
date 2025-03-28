@@ -13,7 +13,7 @@ class CabangController extends Controller
     public function index()
     {
         $cabangs = Cabang::all();
-        return view('cabangs.index', compact('cabangs'));
+        return view('cabang.index', compact('cabangs'));
     }
 
     /**
@@ -21,7 +21,7 @@ class CabangController extends Controller
      */
     public function create()
     {
-        return view('cabangs.create');
+        return view('cabang.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class CabangController extends Controller
 
         Cabang::create($request->all());
 
-        return redirect()->route('cabangs.index')->with('success', 'Cabang berhasil ditambahkan.');
+        return redirect()->route('cabang.index')->with('success', 'Cabang berhasil ditambahkan.');
     }
 
     /**
@@ -45,7 +45,7 @@ class CabangController extends Controller
      */
     public function show(Cabang $cabang)
     {
-        return view('cabangs.show', compact('cabang'));
+        return view('cabang.show', compact('cabang'));
     }
 
     /**
@@ -53,7 +53,7 @@ class CabangController extends Controller
      */
     public function edit(Cabang $cabang)
     {
-        return view('cabangs.edit', compact('cabang'));
+        return view('cabang.edit', compact('cabang'));
     }
 
     /**
@@ -69,7 +69,7 @@ class CabangController extends Controller
 
         $cabang->update($request->all());
 
-        return redirect()->route('cabangs.index')->with('success', 'Cabang berhasil diperbarui.');
+        return redirect()->route('cabang.index')->with('success', 'Cabang berhasil diperbarui.');
     }
 
     /**
@@ -79,6 +79,6 @@ class CabangController extends Controller
     {
         $cabang->delete();
 
-        return redirect()->route('cabangs.index')->with('success', 'Cabang berhasil dihapus.');
+        return redirect()->route('cabang.index')->with('success', 'Cabang berhasil dihapus.');
     }
 }

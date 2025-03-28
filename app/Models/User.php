@@ -13,4 +13,12 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $guarded = [];
+
+    public function cabang(){
+        return $this->belongsTo(Cabang::class);
+    }
+
+    public function peran(){
+        return $this->belongsTo(Peran::class);
+    }
 }

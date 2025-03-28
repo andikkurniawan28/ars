@@ -13,7 +13,7 @@ class PeranController extends Controller
     public function index()
     {
         $perans = Peran::all();
-        return view('perans.index', compact('perans'));
+        return view('peran.index', compact('perans'));
     }
 
     /**
@@ -21,7 +21,7 @@ class PeranController extends Controller
      */
     public function create()
     {
-        return view('perans.create');
+        return view('peran.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class PeranController extends Controller
 
         Peran::create($request->all());
 
-        return redirect()->route('perans.index')->with('success', 'Peran berhasil ditambahkan.');
+        return redirect()->route('peran.index')->with('success', 'Peran berhasil ditambahkan.');
     }
 
     /**
@@ -43,7 +43,7 @@ class PeranController extends Controller
      */
     public function show(Peran $peran)
     {
-        return view('perans.show', compact('peran'));
+        return view('peran.show', compact('peran'));
     }
 
     /**
@@ -51,7 +51,7 @@ class PeranController extends Controller
      */
     public function edit(Peran $peran)
     {
-        return view('perans.edit', compact('peran'));
+        return view('peran.edit', compact('peran'));
     }
 
     /**
@@ -65,7 +65,7 @@ class PeranController extends Controller
 
         $peran->update($request->all());
 
-        return redirect()->route('perans.index')->with('success', 'Peran berhasil diperbarui.');
+        return redirect()->route('peran.index')->with('success', 'Peran berhasil diperbarui.');
     }
 
     /**
@@ -75,6 +75,6 @@ class PeranController extends Controller
     {
         $peran->delete();
 
-        return redirect()->route('perans.index')->with('success', 'Peran berhasil dihapus.');
+        return redirect()->route('peran.index')->with('success', 'Peran berhasil dihapus.');
     }
 }
