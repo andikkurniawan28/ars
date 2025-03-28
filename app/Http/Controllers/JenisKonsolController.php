@@ -8,73 +8,73 @@ use Illuminate\Http\Request;
 class JenisKonsolController extends Controller
 {
     /**
-     * Tampilkan daftar jeniskonsol.
+     * Tampilkan daftar jenis_konsol.
      */
     public function index()
     {
-        $jeniskonsols = JenisKonsol::all();
-        return view('jeniskonsols.index', compact('jeniskonsols'));
+        $jenis_konsols = JenisKonsol::all();
+        return view('jenis_konsol.index', compact('jenis_konsols'));
     }
 
     /**
-     * Tampilkan form untuk menambahkan jeniskonsol baru.
+     * Tampilkan form untuk menambahkan jenis_konsol baru.
      */
     public function create()
     {
-        return view('jeniskonsols.create');
+        return view('jenis_konsol.create');
     }
 
     /**
-     * Simpan jeniskonsol baru ke database.
+     * Simpan jenis_konsol baru ke database.
      */
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|unique:jeniskonsols,nama',
+            'nama' => 'required|string|unique:jenis_konsols,nama',
         ]);
 
         JenisKonsol::create($request->all());
 
-        return redirect()->route('jeniskonsols.index')->with('success', 'JenisKonsol berhasil ditambahkan.');
+        return redirect()->route('jenis_konsol.index')->with('success', 'JenisKonsol berhasil ditambahkan.');
     }
 
     /**
-     * Tampilkan detail jeniskonsol tertentu.
+     * Tampilkan detail jenis_konsol tertentu.
      */
-    public function show(JenisKonsol $jeniskonsol)
+    public function show(JenisKonsol $jenis_konsol)
     {
-        return view('jeniskonsols.show', compact('jeniskonsol'));
+        return view('jenis_konsol.show', compact('jenis_konsol'));
     }
 
     /**
-     * Tampilkan form untuk edit jeniskonsol tertentu.
+     * Tampilkan form untuk edit jenis_konsol tertentu.
      */
-    public function edit(JenisKonsol $jeniskonsol)
+    public function edit(JenisKonsol $jenis_konsol)
     {
-        return view('jeniskonsols.edit', compact('jeniskonsol'));
+        return view('jenis_konsol.edit', compact('jenis_konsol'));
     }
 
     /**
-     * Update data jeniskonsol tertentu di database.
+     * Update data jenis_konsol tertentu di database.
      */
-    public function update(Request $request, JenisKonsol $jeniskonsol)
+    public function update(Request $request, JenisKonsol $jenis_konsol)
     {
         $request->validate([
-            'nama' => 'required|string|unique:jeniskonsols,nama,' . $jeniskonsol->id,
+            'nama' => 'required|string|unique:jenis_konsols,nama,' . $jenis_konsol->id,
         ]);
 
-        $jeniskonsol->update($request->all());
+        $jenis_konsol->update($request->all());
 
-        return redirect()->route('jeniskonsols.index')->with('success', 'JenisKonsol berhasil diperbarui.');
+        return redirect()->route('jenis_konsol.index')->with('success', 'JenisKonsol berhasil diperbarui.');
     }
 
     /**
-     * Hapus jeniskonsol tertentu dari database.
+     * Hapus jenis_konsol tertentu dari database.
      */
-    public function destroy(JenisKonsol $jeniskonsol)
+    public function destroy(JenisKonsol $jenis_konsol)
     {
-        $jeniskonsol->delete();
+        $jenis_konsol->delete();
 
-        return redirect()->route('jeniskonsols.index')->with('success', 'JenisKonsol berhasil dihapus.');
+        return redirect()->route('jenis_konsol.index')->with('success', 'JenisKonsol berhasil dihapus.');
     }
 }

@@ -68,17 +68,24 @@ class UserController extends Controller
             'password' => 'nullable|min:6',
             'alamat' => 'required',
             'whatsapp' => 'required|unique:users,whatsapp,' . $id,
-            'status' => 'boolean',
+            'status' => 'nullable',
             'cabang_id' => 'nullable|exists:cabangs,id',
             'peran_id' => 'required|exists:perans,id',
         ]);
 
-        $data = $request->except('password');
-        if ($request->password) {
-            $data['password'] = bcrypt($request->password);
-        }
+        $user->update([
+            'nama' => $request->nama,
+            'username' => $request->username,
+            'alamat' => $request->alamat,
+            'whatsapp' => $request->whatsapp,
+            'cabang_id' => $request->cabang_id,
+            'peran_id' => $request->peran_id,
+            'status' => $request->has('status') ? 1 : 0, // Konversi "on" menjadi 1 atau 0
+        ]);
 
-        $user->update($data);
+        if ($request->filled('password')) {
+            $user->update(['password' => bcrypt($request->password)]);
+        }
 
         return redirect()->route('user.index')->with('success', 'User berhasil diperbarui!');
     }

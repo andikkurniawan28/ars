@@ -64,15 +64,18 @@
                 <div class="mb-3">
                     <label for="cabang_id" class="form-label">{{ str_replace('_', ' ', ucwords('cabang')) }}</label>
                     <select name="cabang_id" id="cabang_id" class="form-control @error('cabang_id') is-invalid @enderror">
-                        <option value="" selected>-- pilih cabang --</option>
+                        <option value="" {{ is_null(old('cabang_id', $user->cabang_id)) ? 'selected' : '' }}>-- Pilih Cabang --</option>
                         @foreach($cabangs as $cabang)
-                            <option value="{{ $cabang->id }}">{{ $cabang->nama }}</option>
+                            <option value="{{ $cabang->id }}" {{ old('cabang_id', $user->cabang_id) == $cabang->id ? 'selected' : '' }}>
+                                {{ $cabang->nama }}
+                            </option>
                         @endforeach
                     </select>
                     @error('cabang_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+
 
                 <div class="mb-3">
                     <label for="peran_id" class="form-label">{{ str_replace('_', ' ', ucwords('peran')) }}</label>

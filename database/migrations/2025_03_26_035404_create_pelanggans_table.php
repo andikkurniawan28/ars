@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('nama')->unique();
             $table->text('alamat');
             $table->string('whatsapp')->unique();
-            $table->double('hutang');
-            $table->double('piutang');
-            $table->float('poin');
-            $table->double('transaksi');
+            $table->double('hutang')->default(0);
+            $table->double('piutang')->default(0);
+            $table->float('poin')->default(0);
+            $table->double('transaksi')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

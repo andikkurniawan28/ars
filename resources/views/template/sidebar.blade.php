@@ -36,6 +36,10 @@
                 <a class="collapse-item" href="{{ route('cabang.index') }}">{{ str_replace('_', ' ', ucwords('cabang')) }}</a>
                 <a class="collapse-item" href="{{ route('peran.index') }}">{{ str_replace('_', ' ', ucwords('peran')) }}</a>
                 <a class="collapse-item" href="{{ route('user.index') }}">{{ str_replace('_', ' ', ucwords('user')) }}</a>
+                <a class="collapse-item" href="{{ route('supplier.index') }}">{{ str_replace('_', ' ', ucwords('supplier')) }}</a>
+                <a class="collapse-item" href="{{ route('pelanggan.index') }}">{{ str_replace('_', ' ', ucwords('pelanggan')) }}</a>
+                <a class="collapse-item" href="{{ route('jenis_konsol.index') }}">{{ str_replace('_', ' ', ucwords('jenis_konsol')) }}</a>
+                <a class="collapse-item" href="{{ route('firmware.index') }}">{{ str_replace('_', ' ', ucwords('firmware')) }}</a>
             </div>
         </div>
     </li>

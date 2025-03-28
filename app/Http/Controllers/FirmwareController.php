@@ -13,7 +13,7 @@ class FirmwareController extends Controller
     public function index()
     {
         $firmwares = Firmware::all();
-        return view('firmwares.index', compact('firmwares'));
+        return view('firmware.index', compact('firmwares'));
     }
 
     /**
@@ -21,7 +21,7 @@ class FirmwareController extends Controller
      */
     public function create()
     {
-        return view('firmwares.create');
+        return view('firmware.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class FirmwareController extends Controller
 
         Firmware::create($request->all());
 
-        return redirect()->route('firmwares.index')->with('success', 'Firmware berhasil ditambahkan.');
+        return redirect()->route('firmware.index')->with('success', 'Firmware berhasil ditambahkan.');
     }
 
     /**
@@ -43,7 +43,7 @@ class FirmwareController extends Controller
      */
     public function show(Firmware $firmware)
     {
-        return view('firmwares.show', compact('firmware'));
+        return view('firmware.show', compact('firmware'));
     }
 
     /**
@@ -51,7 +51,7 @@ class FirmwareController extends Controller
      */
     public function edit(Firmware $firmware)
     {
-        return view('firmwares.edit', compact('firmware'));
+        return view('firmware.edit', compact('firmware'));
     }
 
     /**
@@ -65,7 +65,7 @@ class FirmwareController extends Controller
 
         $firmware->update($request->all());
 
-        return redirect()->route('firmwares.index')->with('success', 'Firmware berhasil diperbarui.');
+        return redirect()->route('firmware.index')->with('success', 'Firmware berhasil diperbarui.');
     }
 
     /**
@@ -75,6 +75,6 @@ class FirmwareController extends Controller
     {
         $firmware->delete();
 
-        return redirect()->route('firmwares.index')->with('success', 'Firmware berhasil dihapus.');
+        return redirect()->route('firmware.index')->with('success', 'Firmware berhasil dihapus.');
     }
 }

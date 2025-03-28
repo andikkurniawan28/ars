@@ -8,58 +8,77 @@ use Illuminate\Http\Request;
 class PelangganController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Tampilkan daftar pelanggan.
      */
     public function index()
     {
-        //
+        $pelanggans = Pelanggan::all();
+        return view('pelanggan.index', compact('pelanggans'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Tampilkan form untuk menambahkan pelanggan baru.
      */
     public function create()
     {
-        //
+        return view('pelanggan.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Simpan pelanggan baru ke database.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|unique:pelanggans,nama',
+            'alamat' => 'required|string',
+            'whatsapp' => 'required|string|unique:pelanggans,whatsapp',
+        ]);
+
+        Pelanggan::create($request->all());
+
+        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil ditambahkan.');
     }
 
     /**
-     * Display the specified resource.
+     * Tampilkan detail pelanggan tertentu.
      */
     public function show(Pelanggan $pelanggan)
     {
-        //
+        return view('pelanggan.show', compact('pelanggan'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Tampilkan form untuk edit pelanggan tertentu.
      */
     public function edit(Pelanggan $pelanggan)
     {
-        //
+        return view('pelanggan.edit', compact('pelanggan'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update data pelanggan tertentu di database.
      */
     public function update(Request $request, Pelanggan $pelanggan)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|unique:pelanggans,nama,' . $pelanggan->id,
+            'alamat' => 'required|string',
+            'whatsapp' => 'required|string|unique:pelanggans,whatsapp,' . $pelanggan->id,
+        ]);
+
+        $pelanggan->update($request->all());
+
+        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil diperbarui.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Hapus pelanggan tertentu dari database.
      */
     public function destroy(Pelanggan $pelanggan)
     {
-        //
+        $pelanggan->delete();
+
+        return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil dihapus.');
     }
 }

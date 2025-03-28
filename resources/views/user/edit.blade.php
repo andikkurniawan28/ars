@@ -66,9 +66,9 @@
                 <div class="mb-3">
                     <label for="cabang_id" class="form-label">{{ str_replace('_', ' ', ucwords('cabang')) }}</label>
                     <select name="cabang_id" id="cabang_id" class="form-control @error('cabang_id') is-invalid @enderror">
-                        <option value="" selected>-- Pilih Cabang --</option>
+                        <option value="" {{ is_null(old('cabang_id', $user->cabang_id)) ? 'selected' : '' }}>-- Pilih Cabang --</option>
                         @foreach($cabangs as $cabang)
-                            <option value="{{ $cabang->id }}" {{ $user->cabang_id == $cabang->id ? 'selected' : '' }}>
+                            <option value="{{ $cabang->id }}" {{ old('cabang_id', $user->cabang_id) == $cabang->id ? 'selected' : '' }}>
                                 {{ $cabang->nama }}
                             </option>
                         @endforeach
@@ -81,9 +81,9 @@
                 <div class="mb-3">
                     <label for="peran_id" class="form-label">{{ str_replace('_', ' ', ucwords('peran')) }}</label>
                     <select name="peran_id" id="peran_id" class="form-control @error('peran_id') is-invalid @enderror">
-                        <option value="" selected>-- Pilih Peran --</option>
+                        <option value="" {{ is_null(old('peran_id', $user->peran_id)) ? 'selected' : '' }}>-- Pilih Peran --</option>
                         @foreach($perans as $peran)
-                            <option value="{{ $peran->id }}" {{ $user->peran_id == $peran->id ? 'selected' : '' }}>
+                            <option value="{{ $peran->id }}" {{ old('peran_id', $user->peran_id) == $peran->id ? 'selected' : '' }}>
                                 {{ $peran->nama }}
                             </option>
                         @endforeach
@@ -98,12 +98,19 @@
                     <label class="form-label">{{ str_replace('_', ' ', ucwords('status')) }}</label>
                     <div class="form-check form-switch">
                         <input type="checkbox" name="status" id="status" class="form-check-input"
-                               {{ $user->status == 'aktif' ? 'checked' : '' }}>
+                               value="1" {{ $user->status == 1 ? 'checked' : '' }}>
                         <label class="form-check-label" for="status">
-                            {{ $user->status == 'aktif' ? 'Aktif' : 'Nonaktif' }}
+                            {{ $user->status == 1 ? 'Aktif' : 'Nonaktif' }}
                         </label>
                     </div>
                 </div>
+
+                <script>
+                    document.getElementById('status').addEventListener('change', function () {
+                        this.nextElementSibling.innerText = this.checked ? 'Aktif' : 'Nonaktif';
+                    });
+                </script>
+
 
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-success">
@@ -117,11 +124,5 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.getElementById('status').addEventListener('change', function () {
-        this.nextElementSibling.innerText = this.checked ? 'Aktif' : 'Nonaktif';
-    });
-</script>
 
 @endsection

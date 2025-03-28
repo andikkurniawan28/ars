@@ -8,58 +8,77 @@ use Illuminate\Http\Request;
 class SupplierController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Tampilkan daftar supplier.
      */
     public function index()
     {
-        //
+        $suppliers = Supplier::all();
+        return view('supplier.index', compact('suppliers'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Tampilkan form untuk menambahkan supplier baru.
      */
     public function create()
     {
-        //
+        return view('supplier.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Simpan supplier baru ke database.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|unique:suppliers,nama',
+            'alamat' => 'required|string',
+            'whatsapp' => 'required|string|unique:suppliers,whatsapp',
+        ]);
+
+        Supplier::create($request->all());
+
+        return redirect()->route('supplier.index')->with('success', 'Supplier berhasil ditambahkan.');
     }
 
     /**
-     * Display the specified resource.
+     * Tampilkan detail supplier tertentu.
      */
     public function show(Supplier $supplier)
     {
-        //
+        return view('supplier.show', compact('supplier'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Tampilkan form untuk edit supplier tertentu.
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view('supplier.edit', compact('supplier'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update data supplier tertentu di database.
      */
     public function update(Request $request, Supplier $supplier)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|unique:suppliers,nama,' . $supplier->id,
+            'alamat' => 'required|string',
+            'whatsapp' => 'required|string|unique:suppliers,whatsapp,' . $supplier->id,
+        ]);
+
+        $supplier->update($request->all());
+
+        return redirect()->route('supplier.index')->with('success', 'Supplier berhasil diperbarui.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Hapus supplier tertentu dari database.
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        $supplier->delete();
+
+        return redirect()->route('supplier.index')->with('success', 'Supplier berhasil dihapus.');
     }
 }

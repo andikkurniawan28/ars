@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nama')->unique();
             $table->text('alamat');
             $table->string('whatsapp')->unique();
-            $table->double('hutang');
-            $table->double('piutang');
+            $table->double('hutang')->default(0);
+            $table->double('piutang')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
