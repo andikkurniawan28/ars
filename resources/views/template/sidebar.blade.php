@@ -54,7 +54,11 @@
         <div id="transaksi" class="collapse" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
+                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('pembelian_konsumsi')) }}</a>
+                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('penjualan_konsumsi')) }}</a>
+                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('penjualan_rental')) }}</a>
+                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('jurnal_umum')) }}</a>
+                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('log_aktivitas')) }}</a>
             </div>
         </div>
     </li>
@@ -68,7 +72,10 @@
         </a>
         <div id="laporan" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="login.html">Login</a>
+                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('buku_besar')) }}</a>
+                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('arus_kas')) }}</a>
+                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('laba_rugi')) }}</a>
+                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('neraca')) }}</a>
             </div>
         </div>
     </li>

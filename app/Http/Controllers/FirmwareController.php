@@ -30,7 +30,7 @@ class FirmwareController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|unique:firmwares,nama',
+            'nama' => 'required|string|unique:firmware,nama',
         ]);
 
         Firmware::create($request->all());
@@ -60,7 +60,7 @@ class FirmwareController extends Controller
     public function update(Request $request, Firmware $firmware)
     {
         $request->validate([
-            'nama' => 'required|string|unique:firmwares,nama,' . $firmware->id,
+            'nama' => 'required|string|unique:firmware,nama,' . $firmware->id,
         ]);
 
         $firmware->update($request->all());
