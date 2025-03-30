@@ -12,7 +12,8 @@ class ProdukKonsumsiController extends Controller
      */
     public function index()
     {
-        //
+        $produk_konsumsis = ProdukKonsumsi::all();
+        return view('produk_konsumsi.index', compact('produk_konsumsis'));
     }
 
     /**
@@ -20,46 +21,50 @@ class ProdukKonsumsiController extends Controller
      */
     public function create()
     {
-        //
+        return view('produk_konsumsi.create');
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string|unique:produk_konsumsis,nama',
+            'harga_beli' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
+            'poin' => 'required|numeric',
+        ]);
+
+        ProdukKonsumsi::create($request->all());
+
+        return redirect()->route('produk_konsumsi.index')->with('success', 'ProdukKonsumsi berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ProdukKonsumsi $produkKonsumsi)
+    public function edit($id)
     {
-        //
+        $produk_konsumsi = ProdukKonsumsi::findOrFail($id);
+        return view('produk_konsumsi.edit', compact('produk_konsumsi'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ProdukKonsumsi $produkKonsumsi)
+    public function update(Request $request, $id)
     {
-        //
+        $produk_konsumsi = ProdukKonsumsi::findOrFail($id);
+
+        $request->validate([
+            'nama' => 'required|string|unique:produk_konsumsis,nama,' . $produk_konsumsi->id,
+            'harga_beli' => 'required|numeric',
+            'harga_jual' => 'required|numeric',
+            'poin' => 'required|numeric',
+        ]);
+
+        $produk_konsumsi->update($request->except(['_token', '_method']));
+
+        return redirect()->route('produk_konsumsi.index')->with('success', 'ProdukKonsumsi berhasil diperbarui!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ProdukKonsumsi $produkKonsumsi)
+    public function destroy(ProdukKonsumsi $produk_konsumsi)
     {
-        //
-    }
+        $produk_konsumsi->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ProdukKonsumsi $produkKonsumsi)
-    {
-        //
+        return redirect()->route('produk_konsumsi.index')->with('success', 'ProdukKonsumsi berhasil dihapus.');
     }
 }

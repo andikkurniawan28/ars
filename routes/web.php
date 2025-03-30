@@ -12,6 +12,9 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\JenisKonsolController;
+use App\Http\Controllers\ProdukRentalController;
+use App\Http\Controllers\ProdukKonsumsiController;
+use App\Http\Controllers\PembelianProdukKonsumsiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +38,6 @@ Route::resource('firmware', FirmwareController::class);
 Route::resource('konsol', KonsolController::class);
 Route::resource('meja', MejaController::class);
 Route::resource('akun', AkunController::class);
+Route::resource('produk_rental', ProdukRentalController::class);
+Route::resource('produk_konsumsi', ProdukKonsumsiController::class);
+Route::resource('pembelian_produk_konsumsi', PembelianProdukKonsumsiController::class);

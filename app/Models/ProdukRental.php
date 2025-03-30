@@ -10,4 +10,8 @@ class ProdukRental extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function jenis_konsol(){
+        return $this->belongsTo(JenisKonsol::class);
+    }
 }

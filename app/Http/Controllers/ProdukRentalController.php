@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProdukRental;
+use App\Models\JenisKonsol;
 use Illuminate\Http\Request;
 
 class ProdukRentalController extends Controller
@@ -12,7 +13,8 @@ class ProdukRentalController extends Controller
      */
     public function index()
     {
-        //
+        $produk_rentals = ProdukRental::all();
+        return view('produk_rental.index', compact('produk_rentals'));
     }
 
     /**
@@ -20,46 +22,54 @@ class ProdukRentalController extends Controller
      */
     public function create()
     {
-        //
+        $jenis_konsols = JenisKonsol::all();
+        return view('produk_rental.create', compact('jenis_konsols'));
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'jenis_konsol_id' => 'required|exists:jenis_konsols,id',
+            'nama' => 'required|string|unique:produk_rentals,nama',
+            'durasi' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'poin' => 'required|numeric',
+        ]);
+
+        ProdukRental::create($request->all());
+
+        return redirect()->route('produk_rental.index')->with('success', 'ProdukRental berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ProdukRental $produkRental)
+    public function edit($id)
     {
-        //
+        $produk_rental = ProdukRental::findOrFail($id);
+        $jenis_konsols = JenisKonsol::all();
+        return view('produk_rental.edit', compact('produk_rental', 'jenis_konsols'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ProdukRental $produkRental)
+    public function update(Request $request, $id)
     {
-        //
+        $produk_rental = ProdukRental::findOrFail($id);
+
+        $request->validate([
+            'jenis_konsol_id' => 'required|exists:jenis_konsols,id',
+            'nama' => 'required|string|unique:produk_rentals,nama,' . $produk_rental->id,
+            'durasi' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'poin' => 'required|numeric',
+        ]);
+
+        $produk_rental->update($request->except(['_token', '_method']));
+
+        return redirect()->route('produk_rental.index')->with('success', 'ProdukRental berhasil diperbarui!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ProdukRental $produkRental)
+    public function destroy(ProdukRental $produk_rental)
     {
-        //
-    }
+        $produk_rental->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ProdukRental $produkRental)
-    {
-        //
+        return redirect()->route('produk_rental.index')->with('success', 'ProdukRental berhasil dihapus.');
     }
 }
