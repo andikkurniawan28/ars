@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Konsol;
+use App\Models\Firmware;
+use App\Models\Supplier;
+use App\Models\JenisKonsol;
 use Illuminate\Http\Request;
 
 class KonsolController extends Controller
@@ -12,7 +15,8 @@ class KonsolController extends Controller
      */
     public function index()
     {
-        //
+        $konsols = Konsol::all();
+        return view('konsol.index', compact('konsols'));
     }
 
     /**
@@ -20,46 +24,62 @@ class KonsolController extends Controller
      */
     public function create()
     {
-        //
+        $suppliers = Supplier::all();
+        $jenis_konsols = JenisKonsol::all();
+        $firmwares = Firmware::all();
+        return view('konsol.create', compact('suppliers', 'jenis_konsols', 'firmwares'));
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'supplier_id' => 'required|exists:suppliers,id',
+            'jenis_konsol_id' => 'required|exists:jenis_konsols,id',
+            'firmware_id' => 'required|exists:firmware,id',
+            'seri' => 'required|string',
+            'harga' => 'required|numeric',
+            'tanggal_kedatangan' => 'required|date',
+            'status' => 'required|string',
+        ]);
+
+        Konsol::create($request->all());
+
+        return redirect()->route('konsol.index')->with('success', 'Konsol berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Konsol $konsol)
+    public function edit($id)
     {
-        //
+        $konsol = Konsol::findOrFail($id);
+        $suppliers = Supplier::all();
+        $jenis_konsols = JenisKonsol::all();
+        $firmwares = Firmware::all();
+        return view('konsol.edit', compact('konsol', 'suppliers', 'jenis_konsols', 'firmwares'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Konsol $konsol)
+    public function update(Request $request, $id)
     {
-        //
+        $konsol = Konsol::findOrFail($id);
+
+        $request->validate([
+            'supplier_id' => 'required|exists:suppliers,id',
+            'jenis_konsol_id' => 'required|exists:jenis_konsols,id',
+            'firmware_id' => 'required|exists:firmware,id',
+            'seri' => 'required|string',
+            'harga' => 'required|numeric',
+            'tanggal_kedatangan' => 'required|date',
+            'status' => 'required|string',
+        ]);
+
+        $konsol->update($request->except(['_token', '_method']));
+
+        return redirect()->route('konsol.index')->with('success', 'Konsol berhasil diperbarui!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Konsol $konsol)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Konsol $konsol)
     {
-        //
+        $konsol->delete();
+
+        return redirect()->route('konsol.index')->with('success', 'Konsol berhasil dihapus.');
     }
 }

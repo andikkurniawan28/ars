@@ -110,17 +110,17 @@ class DatabaseSeeder extends Seeder
             ['nama' => 'HEN'],
         ]);
 
-        Konsol::insert([
-            ['jenis_konsol_id' => 2, 'firmware_id' => 4, 'supplier_id' => 1, 'tanggal_kedatangan' => '2025-03-14', 'harga' => 2300000],
-            ['jenis_konsol_id' => 2, 'firmware_id' => 3, 'supplier_id' => 2, 'tanggal_kedatangan' => '2025-03-20', 'harga' => 1300000],
-            ['jenis_konsol_id' => 3, 'firmware_id' => 2, 'supplier_id' => 3, 'tanggal_kedatangan' => '2025-03-20', 'harga' => 2900000],
-        ]);
+        // Konsol::insert([
+        //     ['jenis_konsol_id' => 2, 'firmware_id' => 4, 'supplier_id' => 1, 'tanggal_kedatangan' => '2025-03-14', 'harga' => 2300000],
+        //     ['jenis_konsol_id' => 2, 'firmware_id' => 3, 'supplier_id' => 2, 'tanggal_kedatangan' => '2025-03-20', 'harga' => 1300000],
+        //     ['jenis_konsol_id' => 3, 'firmware_id' => 2, 'supplier_id' => 3, 'tanggal_kedatangan' => '2025-03-20', 'harga' => 2900000],
+        // ]);
 
-        Meja::insert([
-            ['cabang_id' => 1, 'konsol_id' => 1, 'status' => 'tersedia'],
-            ['cabang_id' => 1, 'konsol_id' => 2, 'status' => 'tersedia'],
-            ['cabang_id' => 1, 'konsol_id' => 3, 'status' => 'tersedia'],
-        ]);
+        // Meja::insert([
+        //     ['cabang_id' => 1, 'konsol_id' => 1, 'status' => 'tersedia'],
+        //     ['cabang_id' => 1, 'konsol_id' => 2, 'status' => 'tersedia'],
+        //     ['cabang_id' => 1, 'konsol_id' => 3, 'status' => 'tersedia'],
+        // ]);
 
         Akun::insert([
             ['nama' => 'Kas Rental', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],

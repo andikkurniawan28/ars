@@ -10,4 +10,16 @@ class Konsol extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function supplier(){
+        return $this->belongsTo(Supplier::class);
+    }
+
+    public function jenis_konsol(){
+        return $this->belongsTo(JenisKonsol::class);
+    }
+
+    public function firmware(){
+        return $this->belongsTo(Firmware::class);
+    }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('supplier_id')->constrained();
             $table->foreignId('jenis_konsol_id')->constrained();
             $table->foreignId('firmware_id')->constrained();
+            $table->string('seri');
             $table->double('harga');
             $table->date('tanggal_kedatangan');
             $table->string('status')->default('normal');

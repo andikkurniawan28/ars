@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cabang_id')->constrained();
             $table->foreignId('konsol_id')->constrained();
+            $table->string('nama');
             $table->time('mulai')->nullable();
             $table->time('selesai')->nullable();
             $table->string('status')->default('tersedia');

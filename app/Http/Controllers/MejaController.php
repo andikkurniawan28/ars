@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meja;
+use App\Models\Konsol;
+use App\Models\Cabang;
+use App\Models\JenisMeja;
 use Illuminate\Http\Request;
 
 class MejaController extends Controller
@@ -12,7 +15,8 @@ class MejaController extends Controller
      */
     public function index()
     {
-        //
+        $mejas = Meja::all();
+        return view('meja.index', compact('mejas'));
     }
 
     /**
@@ -20,46 +24,54 @@ class MejaController extends Controller
      */
     public function create()
     {
-        //
+        $cabangs = Cabang::all();
+        $konsols = Konsol::all();
+        return view('meja.create', compact('cabangs', 'konsols'));
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cabang_id' => 'required|exists:cabangs,id',
+            'konsol_id' => 'required|exists:konsols,id',
+            'nama' => 'required|string',
+            'status' => 'required|string',
+        ]);
+
+        Meja::create($request->all());
+
+        return redirect()->route('meja.index')->with('success', 'Meja berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Meja $meja)
+    public function edit($id)
     {
-        //
+        $meja = Meja::findOrFail($id);
+        $cabangs = Cabang::all();
+        $konsols = Konsol::all();
+        return view('meja.edit', compact('meja', 'cabangs', 'konsols'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Meja $meja)
+    public function update(Request $request, $id)
     {
-        //
+        $meja = Meja::findOrFail($id);
+
+        $request->validate([
+            'cabang_id' => 'required|exists:cabangs,id',
+            'konsol_id' => 'required|exists:konsols,id',
+            'nama' => 'required|string',
+            'status' => 'required|string',
+        ]);
+
+        $meja->update($request->except(['_token', '_method']));
+
+        return redirect()->route('meja.index')->with('success', 'Meja berhasil diperbarui!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Meja $meja)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Meja $meja)
     {
-        //
+        $meja->delete();
+
+        return redirect()->route('meja.index')->with('success', 'Meja berhasil dihapus.');
     }
 }

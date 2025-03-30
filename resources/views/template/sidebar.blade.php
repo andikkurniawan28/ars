@@ -40,6 +40,9 @@
                 <a class="collapse-item" href="{{ route('pelanggan.index') }}">{{ str_replace('_', ' ', ucwords('pelanggan')) }}</a>
                 <a class="collapse-item" href="{{ route('jenis_konsol.index') }}">{{ str_replace('_', ' ', ucwords('jenis_konsol')) }}</a>
                 <a class="collapse-item" href="{{ route('firmware.index') }}">{{ str_replace('_', ' ', ucwords('firmware')) }}</a>
+                <a class="collapse-item" href="{{ route('konsol.index') }}">{{ str_replace('_', ' ', ucwords('konsol')) }}</a>
+                <a class="collapse-item" href="{{ route('meja.index') }}">{{ str_replace('_', ' ', ucwords('meja')) }}</a>
+                <a class="collapse-item" href="{{ route('akun.index') }}">{{ str_replace('_', ' ', ucwords('akun')) }}</a>
             </div>
         </div>
     </li>

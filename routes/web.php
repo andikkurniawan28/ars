@@ -1,14 +1,17 @@
 <?php
 
-use App\Http\Controllers\CabangController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FirmwareController;
-use App\Http\Controllers\JenisKonsolController;
-use App\Http\Controllers\PelangganController;
-use App\Http\Controllers\PeranController;
-use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AkunController;
+use App\Http\Controllers\MejaController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PeranController;
+use App\Http\Controllers\CabangController;
+use App\Http\Controllers\KonsolController;
+use App\Http\Controllers\FirmwareController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\JenisKonsolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +32,6 @@ Route::resource('supplier', SupplierController::class);
 Route::resource('pelanggan', PelangganController::class);
 Route::resource('jenis_konsol', JenisKonsolController::class);
 Route::resource('firmware', FirmwareController::class);
+Route::resource('konsol', KonsolController::class);
+Route::resource('meja', MejaController::class);
+Route::resource('akun', AkunController::class);

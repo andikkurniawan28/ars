@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Akun;
+use App\Models\Konsol;
+use App\Models\Cabang;
+use App\Models\JenisAkun;
 use Illuminate\Http\Request;
 
 class AkunController extends Controller
@@ -12,7 +15,8 @@ class AkunController extends Controller
      */
     public function index()
     {
-        //
+        $akuns = Akun::all();
+        return view('akun.index', compact('akuns'));
     }
 
     /**
@@ -20,46 +24,52 @@ class AkunController extends Controller
      */
     public function create()
     {
-        //
+        $cabangs = Cabang::all();
+        return view('akun.create', compact('cabangs'));
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cabang_id' => 'nullable|exists:cabangs,id',
+            'nama' => 'required|string',
+            'saldo_normal' => 'required|string',
+            'keterangan' => 'required|string',
+        ]);
+
+        Akun::create($request->all());
+
+        return redirect()->route('akun.index')->with('success', 'Akun berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Akun $akun)
+    public function edit($id)
     {
-        //
+        $akun = Akun::findOrFail($id);
+        $cabangs = Cabang::all();
+        return view('akun.edit', compact('akun', 'cabangs'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Akun $akun)
+    public function update(Request $request, $id)
     {
-        //
+        $akun = Akun::findOrFail($id);
+
+        $request->validate([
+            'cabang_id' => 'nullable|exists:cabangs,id',
+            'nama' => 'required|string',
+            'saldo_normal' => 'required|string',
+            'keterangan' => 'required|string',
+        ]);
+
+        $akun->update($request->except(['_token', '_method']));
+
+        return redirect()->route('akun.index')->with('success', 'Akun berhasil diperbarui!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Akun $akun)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Akun $akun)
     {
-        //
+        $akun->delete();
+
+        return redirect()->route('akun.index')->with('success', 'Akun berhasil dihapus.');
     }
 }
