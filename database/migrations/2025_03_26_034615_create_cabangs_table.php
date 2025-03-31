@@ -16,6 +16,14 @@ return new class extends Migration
             $table->string('nama');
             $table->text('alamat');
             $table->string('whatsapp');
+            $table->foreignId('akun_persediaan_id')->nullable()->constrained('akuns')->onDelete('cascade');
+            $table->foreignId('akun_pendapatan_konsumsi_id')->nullable()->constrained('akuns')->onDelete('cascade');
+            $table->foreignId('akun_hutang_konsumsi_id')->nullable()->constrained('akuns')->onDelete('cascade');
+            $table->foreignId('akun_piutang_konsumsi_id')->nullable()->constrained('akuns')->onDelete('cascade');
+            $table->foreignId('akun_hpp_konsumsi_id')->nullable()->constrained('akuns')->onDelete('cascade');
+            $table->foreignId('akun_pendapatan_rental_id')->nullable()->constrained('akuns')->onDelete('cascade');
+            $table->foreignId('akun_hutang_rental_id')->nullable()->constrained('akuns')->onDelete('cascade');
+            $table->foreignId('akun_piutang_rental_id')->nullable()->constrained('akuns')->onDelete('cascade');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('buku_besars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pembelian_produk_konsumsi_id')->nullable()->constrained();
-            $table->foreignId('penjualan_produk_konsumsi_id')->nullable()->constrained();
-            $table->foreignId('penjualan_produk_rental_id')->nullable()->constrained();
-            $table->foreignId('jurnal_umum_id')->nullable()->constrained();
+            $table->foreignId('pembelian_produk_konsumsi_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('penjualan_produk_konsumsi_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('penjualan_produk_rental_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('jurnal_umum_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('akun_id')->constrained();
             $table->text('keterangan');
             $table->double('debit');

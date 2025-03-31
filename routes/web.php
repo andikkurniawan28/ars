@@ -11,10 +11,13 @@ use App\Http\Controllers\FirmwareController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\StokCabangController;
 use App\Http\Controllers\JenisKonsolController;
 use App\Http\Controllers\ProdukRentalController;
 use App\Http\Controllers\ProdukKonsumsiController;
+use App\Http\Controllers\PenjualanProdukRentalController;
 use App\Http\Controllers\PembelianProdukKonsumsiController;
+use App\Http\Controllers\PenjualanProdukKonsumsiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +43,7 @@ Route::resource('meja', MejaController::class);
 Route::resource('akun', AkunController::class);
 Route::resource('produk_rental', ProdukRentalController::class);
 Route::resource('produk_konsumsi', ProdukKonsumsiController::class);
+Route::get('stok_cabang/{produk_konsumsi_id}/{cabang_id}', StokCabangController::class)->name('stok_cabang');
 Route::resource('pembelian_produk_konsumsi', PembelianProdukKonsumsiController::class);
+Route::resource('penjualan_produk_konsumsi', PenjualanProdukKonsumsiController::class);
+Route::resource('penjualan_produk_rental', PenjualanProdukRentalController::class);

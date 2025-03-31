@@ -25,8 +25,41 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        Akun::insert([
+            ['nama' => 'Kas Rental Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+            ['nama' => 'Kas Konsumsi Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+            ['nama' => 'Rekening Bank BCA', 'saldo_normal' => 'Debit', 'keterangan' => '1231153361'],
+            ['nama' => 'Piutang Rental Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+            ['nama' => 'Piutang Konsumsi Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+            ['nama' => 'Persediaan Barang Dagangan Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+            ['nama' => 'Peralatan Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+            ['nama' => 'Hutang Rental Cabang Kebon Agung', 'saldo_normal' => 'Kredit', 'keterangan' => null],
+            ['nama' => 'Hutang Konsumsi Cabang Kebon Agung', 'saldo_normal' => 'Kredit', 'keterangan' => null],
+            ['nama' => 'Modal Cabang Kebon Agung', 'saldo_normal' => 'Kredit', 'keterangan' => null],
+            ['nama' => 'Laba Ditahan Cabang Kebon Agung', 'saldo_normal' => 'Kredit', 'keterangan' => null],
+            ['nama' => 'Pendapatan Rental Cabang Kebon Agung', 'saldo_normal' => 'Kredit', 'keterangan' => null],
+            ['nama' => 'Pendapatan Konsumsi Cabang Kebon Agung', 'saldo_normal' => 'Kredit', 'keterangan' => null],
+            ['nama' => 'HPP Konsumsi Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+            ['nama' => 'Beban Sewa Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+            ['nama' => 'Beban Listrik & Internet Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+            ['nama' => 'Beban Gaji Karyawan Cabang Kebon Agung', 'saldo_normal' => 'Debit', 'keterangan' => null],
+        ]);
+
         Cabang::insert([
-            ['nama' => 'Kebon Agung', 'alamat' => 'Jl Tarupala RT.24 RW. 04 No. 26/7 Kebon Agung, Pakisaji Malang', 'whatsapp' => '085733465399'],
+            [
+                'nama' => 'Kebon Agung',
+                'alamat' => 'Jl Tarupala RT.24 RW. 04 No. 26/7 Kebon Agung, Pakisaji Malang',
+                'whatsapp' => '085733465399',
+                'akun_persediaan_id' => 6,
+                'akun_pendapatan_konsumsi_id' => 13,
+                'akun_hutang_konsumsi_id' => 9,
+                'akun_piutang_konsumsi_id' => 5,
+                'akun_hpp_konsumsi_id' => 14,
+                'akun_pendapatan_rental_id' => 12,
+                'akun_hutang_rental_id' => 8,
+                'akun_piutang_rental_id' => 4,
+            ],
         ]);
 
         Peran::insert([
@@ -121,27 +154,6 @@ class DatabaseSeeder extends Seeder
         //     ['cabang_id' => 1, 'konsol_id' => 2, 'status' => 'tersedia'],
         //     ['cabang_id' => 1, 'konsol_id' => 3, 'status' => 'tersedia'],
         // ]);
-
-        Akun::insert([
-            ['nama' => 'Kas Rental', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Kas Konsumsi', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Rekening Bank BCA', 'saldo_normal' => 'Debit', 'keterangan' => '1231153361', 'cabang_id' =>null],
-            ['nama' => 'Piutang Rental', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Piutang Konsumsi', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Persediaan Barang Dagangan', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Peralatan', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Akumulasi Penyusutan Peralatan', 'saldo_normal' => 'Kredit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Hutang Rental', 'saldo_normal' => 'Kredit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Hutang Konsumsi', 'saldo_normal' => 'Kredit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Modal', 'saldo_normal' => 'Kredit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Laba Ditahan', 'saldo_normal' => 'Kredit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Pendapatan Rental', 'saldo_normal' => 'Kredit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Pendapatan Konsumsi', 'saldo_normal' => 'Kredit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'HPP Konsumsi', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Beban Sewa', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Beban Listrik & Internet', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-            ['nama' => 'Beban Gaji Karyawan', 'saldo_normal' => 'Debit', 'keterangan' => null, 'cabang_id' => 1],
-        ]);
 
         ProdukRental::insert([
             ['nama' => 'PS3 Reguler', 'durasi' => 60, 'harga' => 5000, 'jenis_konsol_id' => 2],

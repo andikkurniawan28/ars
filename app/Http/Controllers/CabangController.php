@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Akun;
 use App\Models\Cabang;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,33 @@ class CabangController extends Controller
             'whatsapp' => 'required|string|unique:cabangs,whatsapp',
         ]);
 
-        Cabang::create($request->all());
+        $cabang = Cabang::create($request->all());
+
+        $template_akun = [
+            ['nama' => "Kas Rental Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+            ['nama' => "Kas Konsumsi Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+            ['nama' => "Piutang Rental Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+            ['nama' => "Piutang Konsumsi Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+            ['nama' => "Persediaan Barang Dagangan Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+            ['nama' => "Peralatan Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+            ['nama' => "Hutang Rental Cabang {$cabang->nama}", 'saldo_normal' => 'Kredit'],
+            ['nama' => "Hutang Konsumsi Cabang {$cabang->nama}", 'saldo_normal' => 'Kredit'],
+            ['nama' => "Modal Cabang {$cabang->nama}", 'saldo_normal' => 'Kredit'],
+            ['nama' => "Laba Ditahan Cabang {$cabang->nama}", 'saldo_normal' => 'Kredit'],
+            ['nama' => "Pendapatan Rental Cabang {$cabang->nama}", 'saldo_normal' => 'Kredit'],
+            ['nama' => "Pendapatan Konsumsi Cabang {$cabang->nama}", 'saldo_normal' => 'Kredit'],
+            ['nama' => "HPP Konsumsi Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+            ['nama' => "Beban Sewa Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+            ['nama' => "Beban Listrik & Internet Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+            ['nama' => "Beban Gaji Karyawan Cabang {$cabang->nama}", 'saldo_normal' => 'Debit'],
+        ];
+
+        foreach ($template_akun as $akun) {
+            Akun::create([
+                'nama' => $akun['nama'], // Perbaikan akses array asosiatif
+                'saldo_normal' => $akun['saldo_normal'],
+            ]);
+        }
 
         return redirect()->route('cabang.index')->with('success', 'Cabang berhasil ditambahkan.');
     }
@@ -53,7 +80,8 @@ class CabangController extends Controller
      */
     public function edit(Cabang $cabang)
     {
-        return view('cabang.edit', compact('cabang'));
+        $akuns = Akun::all();
+        return view('cabang.edit', compact('cabang', 'akuns'));
     }
 
     /**
@@ -62,9 +90,17 @@ class CabangController extends Controller
     public function update(Request $request, Cabang $cabang)
     {
         $request->validate([
-            'nama' => 'required|string|unique:cabangs,nama,' . $cabang->id,
+            'nama' => 'required|string|max:255|unique:cabangs,nama,' . $cabang->id,
             'alamat' => 'required|string',
-            'whatsapp' => 'required|string|unique:cabangs,whatsapp,' . $cabang->id,
+            'whatsapp' => 'required|string|max:20|unique:cabangs,whatsapp,' . $cabang->id,
+            'akun_persediaan_id' => 'nullable|exists:akuns,id',
+            'akun_pendapatan_konsumsi_id' => 'nullable|exists:akuns,id',
+            'akun_hutang_konsumsi_id' => 'nullable|exists:akuns,id',
+            'akun_piutang_konsumsi_id' => 'nullable|exists:akuns,id',
+            'akun_hpp_konsumsi_id' => 'nullable|exists:akuns,id',
+            'akun_pendapatan_rental_id' => 'nullable|exists:akuns,id',
+            'akun_hutang_rental_id' => 'nullable|exists:akuns,id',
+            'akun_piutang_rental_id' => 'nullable|exists:akuns,id',
         ]);
 
         $cabang->update($request->all());

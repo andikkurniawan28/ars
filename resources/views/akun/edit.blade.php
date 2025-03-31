@@ -19,7 +19,7 @@
                 @csrf
                 @method('PUT')
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label for="cabang_id" class="form-label">{{ str_replace('_', ' ', ucwords('cabang')) }}</label>
                     <select name="cabang_id" id="cabang_id" class="form-control @error('cabang_id') is-invalid @enderror">
                         <option value="" {{ is_null($akun->cabang_id) ? 'selected' : '' }}>-- Tidak ada cabang --</option>
@@ -32,7 +32,7 @@
                     @error('cabang_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
 
                 <div class="mb-3">
                     <label for="nama" class="form-label">{{ str_replace('_', ' ', ucwords('nama')) }}</label>

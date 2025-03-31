@@ -32,7 +32,7 @@ class AkunController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'cabang_id' => 'nullable|exists:cabangs,id',
+            // 'cabang_id' => 'nullable|exists:cabangs,id',
             'nama' => 'required|string',
             'saldo_normal' => 'required|string',
             'keterangan' => 'required|string',
@@ -55,7 +55,7 @@ class AkunController extends Controller
         $akun = Akun::findOrFail($id);
 
         $request->validate([
-            'cabang_id' => 'nullable|exists:cabangs,id',
+            // 'cabang_id' => 'nullable|exists:cabangs,id',
             'nama' => 'required|string',
             'saldo_normal' => 'required|string',
             'keterangan' => 'required|string',

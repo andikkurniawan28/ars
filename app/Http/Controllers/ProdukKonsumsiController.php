@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProdukKonsumsi;
+use App\Models\Cabang;
 use Illuminate\Http\Request;
+use App\Models\ProdukKonsumsi;
 
 class ProdukKonsumsiController extends Controller
 {
@@ -13,7 +14,8 @@ class ProdukKonsumsiController extends Controller
     public function index()
     {
         $produk_konsumsis = ProdukKonsumsi::all();
-        return view('produk_konsumsi.index', compact('produk_konsumsis'));
+        $cabangs = Cabang::all();
+        return view('produk_konsumsi.index', compact('produk_konsumsis', 'cabangs'));
     }
 
     /**

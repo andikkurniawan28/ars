@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stoks', function (Blueprint $table) {
+        Schema::create('akuns', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cabang_id')->constrained();
-            $table->foreignId('produk_konsumsi_id')->constrained();
-            $table->float('qty');
+            // $table->foreignId('cabang_id')->nullable()->constrained();
+            $table->string('nama');
+            $table->string('saldo_normal');
+            $table->string('keterangan')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stoks');
+        Schema::dropIfExists('akuns');
     }
 };

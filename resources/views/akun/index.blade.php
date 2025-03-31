@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                             <th>{{ str_replace('_', ' ', ucwords('ID')) }}</th>
-                            <th>{{ str_replace('_', ' ', ucwords('cabang')) }}</th>
+                            {{-- <th>{{ str_replace('_', ' ', ucwords('cabang')) }}</th> --}}
                             <th>{{ str_replace('_', ' ', ucwords('nama')) }}</th>
                             <th>{{ str_replace('_', ' ', ucwords('saldo_normal')) }}</th>
                             <th>{{ str_replace('_', ' ', ucwords('keterangan')) }}</th>
@@ -34,7 +34,7 @@
                         @foreach ($akuns as $akun)
                         <tr>
                             <td>{{ $akun->id }}</td>
-                            <td>{{ $akun->cabang->nama ?? '-' }}</td>
+                            {{-- <td>{{ $akun->cabang->nama ?? '-' }}</td> --}}
                             <td>{{ $akun->nama }}</td>
                             <td>{{ $akun->saldo_normal }}</td>
                             <td>{{ $akun->keterangan }}</td>

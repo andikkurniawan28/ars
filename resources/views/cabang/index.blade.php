@@ -23,9 +23,10 @@
                     <thead>
                         <tr>
                             <th>{{ str_replace('_', ' ', ucwords('ID')) }}</th>
-                            <th>{{ str_replace('_', ' ', ucwords('nama')) }}</th>
-                            <th>{{ str_replace('_', ' ', ucwords('alamat')) }}</th>
-                            <th>{{ str_replace('_', ' ', ucwords('whatsapp')) }}</th>
+                            <th>{{ str_replace('_', ' ', ucwords('kontak')) }}</th>
+                            {{-- <th>{{ str_replace('_', ' ', ucwords('alamat')) }}</th>
+                            <th>{{ str_replace('_', ' ', ucwords('whatsapp')) }}</th> --}}
+                            <th>{{ str_replace('_', ' ', ucwords('akun')) }}</th>
                             <th>{{ str_replace('_', ' ', ucwords('aksi')) }}</th>
                         </tr>
                     </thead>
@@ -33,9 +34,22 @@
                         @foreach ($cabangs as $cabang)
                         <tr>
                             <td>{{ $cabang->id }}</td>
-                            <td>{{ $cabang->nama }}</td>
-                            <td>{{ $cabang->alamat }}</td>
-                            <td><a href="https://wa.me/{{ $cabang->whatsapp }}" target="_blank">{{ $cabang->whatsapp }}</a></td>
+                            <td>
+                                <li>Nama : {{ $cabang->nama }}</li>
+                                <li>Alamat : {{ $cabang->alamat }}</li>
+                                <li>Whatsapp : <a href="https://wa.me/{{ $cabang->whatsapp }}" target="_blank">{{ $cabang->whatsapp }}</a></li>
+
+                            </td>
+                            <td>
+                                <li>Persediaan : {{ $cabang->akun_persediaan_id ?? '-' }}) {{ $cabang->akun_persediaan->nama ?? '-' }}</li>
+                                <li>Pendapatan Konsumsi : {{ $cabang->akun_pendapatan_konsumsi_id ?? '-' }}) {{ $cabang->akun_pendapatan_konsumsi->nama ?? '-' }}</li>
+                                <li>Hutang Konsumsi : {{ $cabang->akun_hutang_konsumsi_id ?? '-' }}) {{ $cabang->akun_hutang_konsumsi->nama ?? '-' }}</li>
+                                <li>Piutang Konsumsi : {{ $cabang->akun_piutang_konsumsi_id ?? '-' }}) {{ $cabang->akun_piutang_konsumsi->nama ?? '-' }}</li>
+                                <li>HPP Konsumsi : {{ $cabang->akun_hpp_konsumsi_id ?? '-' }}) {{ $cabang->akun_hpp_konsumsi->nama ?? '-' }}</li>
+                                <li>Pendapatan Rental : {{ $cabang->akun_pendapatan_rental_id ?? '-' }}) {{ $cabang->akun_pendapatan_rental->nama ?? '-' }}</li>
+                                <li>Hutang Rental : {{ $cabang->akun_hutang_rental_id ?? '-' }}) {{ $cabang->akun_hutang_rental->nama ?? '-' }}</li>
+                                <li>Piutang Rental : {{ $cabang->akun_piutang_rental_id ?? '-' }}) {{ $cabang->akun_piutang_rental->nama ?? '-' }}</li>
+                            </td>
                             <td>
                                 <a href="{{ route('cabang.edit', $cabang->id) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit"></i> Edit

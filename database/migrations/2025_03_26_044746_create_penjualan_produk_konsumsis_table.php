@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('cabang_id')->constrained();
             $table->foreignId('produk_konsumsi_id')->constrained();
             $table->foreignId('akun_kas_id')->constrained('akuns')->onDelete('cascade');
-            $table->foreignId('akun_persediaan_id')->constrained('akuns')->onDelete('cascade');
             $table->float('qty');
             $table->double('tagihan');
             $table->double('dibayar');

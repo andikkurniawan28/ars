@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembelian_produk_konsumsis', function (Blueprint $table) {
+        Schema::create('stoks', function (Blueprint $table) {
             $table->id();
-            $table->date('tanggal');
-            $table->foreignId('supplier_id')->constrained();
             $table->foreignId('cabang_id')->constrained();
             $table->foreignId('produk_konsumsi_id')->constrained();
-            $table->foreignId('akun_kas_id')->constrained('akuns')->onDelete('cascade');
-            $table->float('qty');
-            $table->double('tagihan');
-            $table->double('dibayar');
-            $table->double('sisa');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('pembelian_produk_konsumsi_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('penjualan_produk_konsumsi_id')->nullable()->constrained()->onDelete('cascade');
+            $table->text('keterangan');
+            $table->float('masuk');
+            $table->float('keluar');
+            // $table->float('saldo');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembelian_produk_konsumsis');
+        Schema::dropIfExists('stoks');
     }
 };

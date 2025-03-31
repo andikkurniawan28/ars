@@ -5,7 +5,7 @@
 @endsection
 
 @section('page-title')
-    {{ str_replace('_', ' ', ucwords('kulakan')) }}
+    {{ str_replace('_', ' ', ucwords('penjualan_produk_konsumsi')) }}
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
             <h4 class="m-0 font-weight-bold text-primary">Tambah @yield('page-title')</h4>
         </div>
         <div class="card-body">
-            <form action="{{ route('pembelian_produk_konsumsi.store') }}" method="POST">
+            <form action="{{ route('penjualan_produk_konsumsi.store') }}" method="POST">
                 @csrf
 
                 <div class="row">
@@ -31,14 +31,14 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="supplier_id" class="form-label">{{ str_replace('_', ' ', ucwords('supplier')) }}</label>
-                            <select name="supplier_id" id="supplier_id" class="form-control @error('supplier_id') is-invalid @enderror">
-                                <option value="" selected>-- pilih supplier --</option>
-                                @foreach($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}">{{ $supplier->nama }}</option>
+                            <label for="pelanggan_id" class="form-label">{{ str_replace('_', ' ', ucwords('pelanggan')) }}</label>
+                            <select name="pelanggan_id" id="pelanggan_id" class="form-control @error('pelanggan_id') is-invalid @enderror">
+                                <option value="" selected>-- pilih pelanggan --</option>
+                                @foreach($pelanggans as $pelanggan)
+                                    <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama }}</option>
                                 @endforeach
                             </select>
-                            @error('supplier_id')
+                            @error('pelanggan_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -57,15 +57,16 @@
                         </div>
 
                     </div>
-
                     <div class="col-md-6">
-
                         <div class="mb-3">
                             <label for="produk_konsumsi_id" class="form-label">{{ str_replace('_', ' ', ucwords('produk')) }}</label>
                             <select name="produk_konsumsi_id" id="produk_konsumsi_id" class="form-control @error('produk_konsumsi_id') is-invalid @enderror">
                                 <option value="" selected>-- pilih produk --</option>
                                 @foreach($produk_konsumsis as $produk_konsumsi)
-                                    <option value="{{ $produk_konsumsi->id }}" data-harga="{{ $produk_konsumsi->harga_beli }}">{{ $produk_konsumsi->nama }}</option>
+                                    <option value="{{ $produk_konsumsi->id }}"
+                                        data-harga="{{ $produk_konsumsi->harga_jual }}"
+                                        data-poin="{{ $produk_konsumsi->poin }}"
+                                    >{{ $produk_konsumsi->nama }}</option>
                                 @endforeach
                             </select>
                             @error('produk_konsumsi_id')
@@ -95,7 +96,6 @@
                             @enderror
                         </div>
                     </div>
-
                 </div>
 
                 <div class="row">
@@ -103,7 +103,7 @@
                         <div class="mb-3">
                             <label for="tagihan" class="form-label">{{ str_replace('_', ' ', ucwords('tagihan')) }}</label>
                             <input type="number" name="tagihan" id="tagihan" class="form-control @error('tagihan') is-invalid @enderror"
-                                value="{{ old('tagihan') }}" required>
+                                   value="{{ old('tagihan') }}" required>
                             @error('tagihan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -113,7 +113,7 @@
                         <div class="mb-3">
                             <label for="dibayar" class="form-label">{{ str_replace('_', ' ', ucwords('dibayar')) }}</label>
                             <input type="number" name="dibayar" id="dibayar" class="form-control @error('dibayar') is-invalid @enderror"
-                                value="{{ old('dibayar') }}" required>
+                                   value="{{ old('dibayar') }}" required>
                             @error('dibayar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -128,6 +128,8 @@
                     </div>
                 </div>
 
+                <input type="hidden" name="poin" id="poin" value="">
+
                 <!-- Script untuk menghitung sisa -->
                 <script>
                     document.addEventListener("DOMContentLoaded", function () {
@@ -136,14 +138,18 @@
                         let tagihanInput = document.getElementById('tagihan');
                         let dibayarInput = document.getElementById('dibayar');
                         let sisaInput = document.getElementById('sisa');
+                        let poinInput = document.getElementById('poin');
 
                         function hitungTagihan() {
                             let selectedOption = produkSelect.options[produkSelect.selectedIndex];
-                            let hargaBeli = parseFloat(selectedOption.getAttribute('data-harga')) || 0;
+                            let hargaJual = parseFloat(selectedOption.getAttribute('data-harga')) || 0;
+                            let poin = parseFloat(selectedOption.getAttribute('data-poin')) || 0;
                             let qty = parseFloat(qtyInput.value) || 0;
-                            let tagihan = hargaBeli * qty;
+                            let tagihan = hargaJual * qty;
                             tagihanInput.value = tagihan;
                             dibayarInput.value = tagihan;
+                            poinInput.value = poin;
+
                             hitungSisa(); // Pastikan sisa tetap dihitung
                         }
 
@@ -165,7 +171,7 @@
                     <button type="submit" class="btn btn-success">
                         <i class="fas fa-save"></i> Simpan
                     </button>
-                    <a href="{{ route('pembelian_produk_konsumsi.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('penjualan_produk_konsumsi.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                 </div>

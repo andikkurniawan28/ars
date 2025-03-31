@@ -35,7 +35,7 @@
                         <tr>
                             <td>{{ $meja->id }}</td>
                             <td>{{ $meja->cabang->nama }}</td>
-                            <td>{{ $meja->konsol->id }}</td>
+                            <td>{{ $meja->konsol->id }} | {{ $meja->konsol->jenis_konsol->nama }}</td>
                             <td>{{ $meja->nama }}</td>
                             <td>{{ $meja->status }}</td>
                             <td>

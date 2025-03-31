@@ -20,9 +20,9 @@
                 @method('PUT')
 
                 <div class="mb-3">
-                    <label for="nama" class="form-label">{{ str_replace('_', ' ', ucwords('nama')) }}</label>
+                    <label for="nama" class="form-label">Nama</label>
                     <input type="text" name="nama" id="nama" class="form-control @error('nama') is-invalid @enderror"
-                           value="{{ old('nama', $cabang->nama) }}" required autofocus>
+                           value="{{ old('nama', $cabang->nama) }}" readonly autofocus>
                     @error('nama')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
@@ -44,6 +44,37 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+
+                @php
+                    $akunFields = [
+                        'akun_persediaan_id' => 'Akun Persediaan',
+                        'akun_pendapatan_konsumsi_id' => 'Akun Pendapatan Konsumsi',
+                        'akun_hutang_konsumsi_id' => 'Akun Hutang Konsumsi',
+                        'akun_piutang_konsumsi_id' => 'Akun Piutang Konsumsi',
+                        'akun_hpp_konsumsi_id' => 'Akun HPP Konsumsi',
+                        'akun_pendapatan_rental_id' => 'Akun Pendapatan Rental',
+                        'akun_hutang_rental_id' => 'Akun Hutang Rental',
+                        'akun_piutang_rental_id' => 'Akun Piutang Rental',
+                    ];
+                @endphp
+
+                @foreach($akunFields as $field => $label)
+                    <div class="mb-3">
+                        <label for="{{ $field }}" class="form-label">{{ $label }}</label>
+                        <select name="{{ $field }}" id="{{ $field }}" class="form-control @error($field) is-invalid @enderror">
+                            <option value="" selected>-- Pilih {{ strtolower($label) }} --</option>
+                            @foreach($akuns as $akun)
+                                <option value="{{ $akun->id }}"
+                                    {{ old($field, $cabang->$field) == $akun->id ? 'selected' : '' }}>
+                                    {{ $akun->id }}) {{ $akun->nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error($field)
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                @endforeach
 
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary">
