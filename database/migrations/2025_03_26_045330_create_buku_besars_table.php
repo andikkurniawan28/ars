@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreignId('jurnal_umum_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('akun_id')->constrained();
             $table->text('keterangan');
-            $table->double('debit');
-            $table->double('kredit');
+            $table->double('debit')->nullable();
+            $table->double('kredit')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

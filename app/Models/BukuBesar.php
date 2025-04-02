@@ -10,4 +10,8 @@ class BukuBesar extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function akun(){
+        return $this->belongsTo(Akun::class);
+    }
 }

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('detail_jurnal_umums', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jurnal_umum_id')->constrained();
+            $table->foreignId('jurnal_umum_id')->constrained()->onDelete('cascade');
             $table->foreignId('akun_id')->constrained();
             $table->text('keterangan');
-            $table->double('debit');
-            $table->double('kredit');
+            $table->double('debit')->nullable();
+            $table->double('kredit')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

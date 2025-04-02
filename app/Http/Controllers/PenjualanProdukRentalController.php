@@ -39,8 +39,6 @@ class PenjualanProdukRentalController extends Controller
 
     public function store(Request $request)
     {
-        // return $request;
-
         $durasi = ProdukRental::whereId($request->produk_rental_id)->get()->last()->durasi * $request->qty;
         $selesai = date('Y-m-d H:i:s', strtotime($request->mulai . " +{$durasi} minutes"));
         $cabang_id = Meja::whereId($request->meja_id)->get()->last()->cabang_id;

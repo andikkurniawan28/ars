@@ -62,8 +62,8 @@
                 <a class="collapse-item" href="{{ route('pembelian_produk_konsumsi.index') }}">{{ str_replace('_', ' ', ucwords('kulakan')) }}</a>
                 <a class="collapse-item" href="{{ route('penjualan_produk_konsumsi.index') }}">{{ str_replace('_', ' ', ucwords('penjualan_konsumsi')) }}</a>
                 <a class="collapse-item" href="{{ route('penjualan_produk_rental.index') }}">{{ str_replace('_', ' ', ucwords('penjualan_rental')) }}</a>
-                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('jurnal_umum')) }}</a>
-                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('log_aktivitas')) }}</a>
+                <a class="collapse-item" href="{{ route('jurnal_umum.index') }}">{{ str_replace('_', ' ', ucwords('jurnal_umum')) }}</a>
+                <a class="collapse-item" href="{{ route('log_aktivitas') }}">{{ str_replace('_', ' ', ucwords('log_aktivitas')) }}</a>
             </div>
         </div>
     </li>
@@ -77,7 +77,7 @@
         </a>
         <div id="laporan" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('buku_besar')) }}</a>
+                <a class="collapse-item" href="{{ route('buku_besar') }}">{{ str_replace('_', ' ', ucwords('buku_besar')) }}</a>
                 <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('arus_kas')) }}</a>
                 <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('laba_rugi')) }}</a>
                 <a class="collapse-item" href="">{{ str_replace('_', ' ', ucwords('neraca')) }}</a>
